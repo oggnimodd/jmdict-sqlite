@@ -1,0 +1,51 @@
+{
+  "name": "node-typescript-boilerplate",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "bun --hot src/index.ts",
+    "start": "bun src/index.ts",
+    "test": "bun test",
+    "clean": "rimraf coverage build tmp dist && bun run clean:deps",
+    "clean:deps": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
+    "prebuild": "bun run lint",
+    "prepare": "bun prepare.js",
+    "pre-commit": "bun lint-staged",
+    "lint": "biome check .",
+    "lint:apply": "biome check --apply .",
+    "format": "biome format .",
+    "format:fix": "biome format --write .",
+    "generate-migration": "bunx drizzle-kit generate:sqlite --schema ./src/schema.ts"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.5.3",
+    "@scriptin/jmdict-simplified-types": "^3.5.0",
+    "@types/bun": "^1.0.4",
+    "drizzle-kit": "^0.20.14",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "rimraf": "~5.0.5",
+    "typescript": "~5.3.2"
+  },
+  "lint-staged": {
+    "**/*.{js,ts,jsx,tsx,json}": [
+      "biome check --apply .",
+      "biome format --write ."
+    ]
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.29.3"
+  }
+}

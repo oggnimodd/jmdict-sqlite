@@ -1,0 +1,5 @@
+tasks:
+  - init: curl -fsSL https://bun.sh/install | bash && source ~/.bashrc && bun install && npm install -g @antfu/ni
+    command: bun run ./src/index.ts
+
+
